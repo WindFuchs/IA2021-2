@@ -7,16 +7,16 @@ public class Grid : MonoBehaviour
     public Transform StartPosition;
     public LayerMask WallMask;
     public Vector2 gridWorldSize;
-    public float nodeRadious;
+    public float nodeRadius;
     public float Distance;
-    Node[,] grid;
+    Node[,] gridArray;
     public List<Node> FinalPath;
     float nodeDiameter;
     int gridSizeX;
     int gridSizeY;
     private void Start()
     {
-        nodeDiameter = nodeRadious * 2;
+        nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
@@ -24,20 +24,20 @@ public class Grid : MonoBehaviour
 
     void CreateGrid()
     {
-        grid = new Node[gridSizeX, gridSizeY];
+        gridArray = new Node[gridSizeX, gridSizeY];
         Vector3 bottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
-        for (int y = 0; y < gridSizeX; y++)
+        for (int x = 0; x < gridSizeX; x++)
         {
-            for (int x = 0; x < gridSizeX; x++)
+            for (int y = 0; y < gridSizeY; y++)
             {
-                Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadious) + Vector3.forward * (y * nodeDiameter + nodeRadious);
+                Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool Wall = true;
 
-                if (Physics.CheckSphere(worldPoint, nodeRadious, WallMask))
+                if (Physics.CheckSphere(worldPoint, nodeRadius, WallMask))
                 {
                     Wall = false;
                 }
-                grid[y, x] = new Node(Wall, worldPoint, x, y);
+                gridArray[y, x] = new Node(Wall, worldPoint, x, y);
             }
         }
     }
@@ -53,57 +53,70 @@ public class Grid : MonoBehaviour
         int x = Mathf.RoundToInt((gridSizeX - 1) * xPoint);
         int y = Mathf.RoundToInt((gridSizeY - 1) * yPoint);
 
-        return grid[x, y];
+        return gridArray[x, y];
+    }
+
+    private void NodeCheck(int _x_Check, int _y_Check, List<Node> _neighbourNodes)
+    {
+        if (_x_Check >= 0 && _x_Check < gridSizeX)
+        {
+            if (_y_Check >= 0 && _y_Check < gridSizeY)
+            {
+                _neighbourNodes.Add(gridArray[_x_Check, _y_Check]);
+            }
+        }
     }
 
     public List<Node> GetNeighbourNodes(Node _node)
     {
         List<Node> NeighbourNodes = new List<Node>();
-        int xCheck;
-        int yCheck;
+        int x_Check;
+        int y_Check;
 
-        xCheck = _node.gridX + 1;
-        yCheck = _node.gridY;
+        x_Check = _node.gridX + 1;
+        y_Check = _node.gridY;
+
+        // NodeCheck(x_Check, y_Check, NeighbourNodes);
 
         //Dreita
-        if (xCheck >= 0 && xCheck < gridSizeX)
+        if (x_Check >= 0 && x_Check < gridSizeX)
         {
-            if (yCheck >= 0 && yCheck < gridSizeY)
+            if (y_Check >= 0 && y_Check < gridSizeY)
             {
-                NeighbourNodes.Add(grid[xCheck, yCheck]);
+                NeighbourNodes.Add(gridArray[x_Check, y_Check]);
             }
         }
 
         //Esquerda
-        xCheck = _node.gridX - 1;
-        yCheck = _node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX)
+        x_Check = _node.gridX - 1;
+        y_Check = _node.gridY;
+        if (x_Check >= 0 && x_Check < gridSizeX)
         {
-            if (yCheck >= 0 && yCheck < gridSizeY)
+            if (y_Check >= 0 && y_Check < gridSizeY)
             {
-                NeighbourNodes.Add(grid[xCheck, yCheck]);
+                NeighbourNodes.Add(gridArray[x_Check, y_Check]);
             }
         }
 
         //Cima
-        xCheck = _node.gridX;
-        yCheck = _node.gridY + 1;
-        if (xCheck >= 0 && xCheck < gridSizeX)
+        x_Check = _node.gridX;
+        y_Check = _node.gridY + 1;
+        if (x_Check >= 0 && x_Check < gridSizeX)
         {
-            if (yCheck >= 0 && yCheck < gridSizeY)
+            if (y_Check >= 0 && y_Check < gridSizeY)
             {
-                NeighbourNodes.Add(grid[xCheck, yCheck]);
+                NeighbourNodes.Add(gridArray[x_Check, y_Check]);
             }
         }
 
         //Baixo
-        xCheck = _node.gridX;
-        yCheck = _node.gridY - 1;
-        if (xCheck >= 0 && xCheck < gridSizeX)
+        x_Check = _node.gridX;
+        y_Check = _node.gridY - 1;
+        if (x_Check >= 0 && x_Check < gridSizeX)
         {
-            if (yCheck >= 0 && yCheck < gridSizeY)
+            if (y_Check >= 0 && y_Check < gridSizeY)
             {
-                NeighbourNodes.Add(grid[xCheck, yCheck]);
+                NeighbourNodes.Add(gridArray[x_Check, y_Check]);
             }
         }
 
@@ -113,9 +126,9 @@ public class Grid : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-        if (grid != null)
+        if (gridArray != null)
         {
-            foreach (Node n in grid)
+            foreach (Node n in gridArray)
             {
                 if (n.Iswall)
                 {

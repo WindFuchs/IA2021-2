@@ -53,6 +53,7 @@ public class PathFinding : MonoBehaviour
 
                 if (MoveCost < NeighbourNode.CostG || !OpenList.Contains(NeighbourNode))
                 {
+                    // NeighbourNode.CostG = MoveCost;
                     NeighbourNode.CostH = GetManhattenDistance(NeighbourNode, TargetNode);
                     NeighbourNode.Parent = CurrentNode;
                 }
