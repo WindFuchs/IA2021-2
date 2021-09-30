@@ -1229,13 +1229,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ec49f5ee38bb6469f00bc0c2c4729a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {fileID: 1320116005}
-  wallMask:
+  StartPosition: {fileID: 1320116005}
+  WallMask:
     serializedVersion: 2
-    m_Bits: 0
-  gridWorldSize: {x: 50, y: 50}
-  nodeRadius: 0.5
-  nodesDistance: 0
+    m_Bits: 64
+  vGridWorldSize: {x: 50, y: 50}
+  fNodeRadius: 0.5
+  fDistanceBetweenNodes: 0
 --- !u!4 &1070829698
 Transform:
   m_ObjectHideFlags: 0
@@ -1749,7 +1749,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669097301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3b51ce5c0b7a1346b78079d41760b35, type: 3}
+  m_Script: {fileID: 11500000, guid: ebaee1cbefa80644d84ce4aea08d907e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayers:
