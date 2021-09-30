@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoToClick : MonoBehaviour
+public class MoveTarget : MonoBehaviour
 {
     public LayerMask hitLayers;
     void Update()
@@ -19,3 +19,4 @@ public class GoToClick : MonoBehaviour
         }
     }
 }
+

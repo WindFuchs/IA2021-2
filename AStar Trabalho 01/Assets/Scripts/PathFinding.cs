@@ -1,36 +1,37 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathFinding : MonoBehaviour
+public class Pathfinding : MonoBehaviour
 {
-    Grid grid;
-    public Transform StartingPosition;
+    Grid GridReference;
+    public Transform StartPosition;
     public Transform TargetPosition;
     private void Awake()
     {
-        grid = GetComponent<Grid>();
+        GridReference = GetComponent<Grid>();
     }
+
     private void Update()
     {
-        FindPath(StartingPosition.position, TargetPosition.position);
+        FindPath(StartPosition.position, TargetPosition.position);
     }
 
-    void FindPath(Vector3 _startingPosition, Vector3 _targetPosition)
+    void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
-        Node StartNode = grid.NodeFromWorldPosition(_startingPosition);
-        Node TargetNode = grid.NodeFromWorldPosition(_targetPosition);
-
+        Node StartNode = GridReference.NodeFromWorldPoint(a_StartPos);
+        Node TargetNode = GridReference.NodeFromWorldPoint(a_TargetPos);
         List<Node> OpenList = new List<Node>();
         HashSet<Node> ClosedList = new HashSet<Node>();
 
         OpenList.Add(StartNode);
+
         while (OpenList.Count > 0)
         {
             Node CurrentNode = OpenList[0];
             for (int i = 1; i < OpenList.Count; i++)
             {
-                if (OpenList[i].CostF < CurrentNode.CostF || OpenList[i].CostF == CurrentNode.CostF && OpenList[i].CostH < CurrentNode.CostH)
+                if (OpenList[i].FCost < CurrentNode.FCost || OpenList[i].FCost == CurrentNode.FCost && OpenList[i].ihCost < CurrentNode.ihCost)
                 {
                     CurrentNode = OpenList[i];
                 }
@@ -43,49 +44,52 @@ public class PathFinding : MonoBehaviour
                 GetFinalPath(StartNode, TargetNode);
             }
 
-            foreach (Node NeighbourNode in grid.GetNeighbourNodes(CurrentNode))
+            foreach (Node NeighborNode in GridReference.GetNeighboringNodes(CurrentNode))
             {
-                if (!NeighbourNode.Iswall || ClosedList.Contains(NeighbourNode))
+                if (!NeighborNode.bIsWall || ClosedList.Contains(NeighborNode))
                 {
                     continue;
                 }
-                int MoveCost = CurrentNode.CostG + GetManhattenDistance(CurrentNode, NeighbourNode);
+                int MoveCost = CurrentNode.igCost + GetManhattenDistance(CurrentNode, NeighborNode);
 
-                if (MoveCost < NeighbourNode.CostG || !OpenList.Contains(NeighbourNode))
+                if (MoveCost < NeighborNode.igCost || !OpenList.Contains(NeighborNode))
                 {
-                    // NeighbourNode.CostG = MoveCost;
-                    NeighbourNode.CostH = GetManhattenDistance(NeighbourNode, TargetNode);
-                    NeighbourNode.Parent = CurrentNode;
-                }
+                    NeighborNode.igCost = MoveCost;
+                    NeighborNode.ihCost = GetManhattenDistance(NeighborNode, TargetNode);
+                    NeighborNode.ParentNode = CurrentNode;
 
-                if (!OpenList.Contains(NeighbourNode))
-                {
-                    OpenList.Add(NeighbourNode);
+                    if (!OpenList.Contains(NeighborNode))
+                    {
+                        OpenList.Add(NeighborNode);
+                    }
                 }
             }
+
         }
     }
 
-    void GetFinalPath(Node _startNode, Node _targetNode)
+    void GetFinalPath(Node a_StartingNode, Node a_EndNode)
     {
-        List<Node> FinalPath = new List<Node>();
-        Node CurrentNode = _targetNode;
+        List<Node> FinalPath = new List<Node>();//List to hold the path sequentially 
+        Node CurrentNode = a_EndNode;//Node to store the current node being checked
 
-        while (CurrentNode != _startNode)
+        while (CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
         {
-            FinalPath.Add(CurrentNode);
-            CurrentNode = CurrentNode.Parent;
+            FinalPath.Add(CurrentNode);//Add that node to the final path
+            CurrentNode = CurrentNode.ParentNode;//Move onto its parent node
         }
 
-        FinalPath.Reverse();
-        grid.FinalPath = FinalPath;
+        FinalPath.Reverse();//Reverse the path to get the correct order
+
+        GridReference.FinalPath = FinalPath;//Set the final path
+
     }
 
-    int GetManhattenDistance(Node _currentNode, Node _neighbourNode)
+    int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
     {
-        int ix = Mathf.Abs(_currentNode.gridX - _neighbourNode.gridX);
-        int iy = Mathf.Abs(_currentNode.gridY - _neighbourNode.gridY);
+        int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
+        int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);//y1-y2
 
-        return ix + iy;
+        return ix + iy;//Return the sum
     }
 }
