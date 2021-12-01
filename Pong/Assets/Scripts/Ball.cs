@@ -2,36 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour
+public class Ball : MonoBehaviour
 {
-    public bool isPlayer1;
     public float speed;
     public Rigidbody2D rb;
     public Vector2 startPosition;
 
-    private float movement;
-
     private void Start()
     {
+        Lunch();
         startPosition = transform.position;
     }
 
-    private void Update()
+    private void Lunch()
     {
-        if (isPlayer1)
-        {
-            movement = Input.GetAxis("Vertical2");
-        }
-        else
-        {
-            movement = Input.GetAxis("Vertical");
-        }
-        rb.velocity = new Vector2(rb.velocity.x, movement * speed);
+        float x = Random.Range(0, 2) == 0 ? -1 : 1;
+        float y = Random.Range(0, 2) == 0 ? -1 : 1;
+        rb.velocity = new Vector2(speed * x, speed * y);
     }
 
     public void Reset()
     {
         rb.velocity = Vector2.zero;
         transform.position = startPosition;
+        Lunch();
     }
 }
