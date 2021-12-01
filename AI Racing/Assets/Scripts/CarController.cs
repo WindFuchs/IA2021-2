@@ -55,9 +55,6 @@ public class CarController : MonoBehaviour
         {
             ReleaseBreakingForce();
         }
-
-        Debug.LogFormat("Current Torque = " + frontLeftWheelCollider.motorTorque);
-        Debug.LogFormat("Is Breaking = " + isBreaking);
     }
 
     private void ApplyBreakingForce()
