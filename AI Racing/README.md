@@ -3,6 +3,7 @@ Exercícios e Trabalhos de IA
 
 Trabalho Machine Learning Grau B.
 
+# Instalação 
 1- Instalar Python 3.7 - Setar variavel no Path
 2- Criar um ambiente virtual no projeto com o comando "python -m venv venv"
 3- Rodar o arquivo bat "activate" na pasta venv\Scripts para entrar no ambiente virtual
