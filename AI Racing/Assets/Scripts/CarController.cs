@@ -37,9 +37,32 @@ public class CarController : MonoBehaviour
     }
     private void GetInput()
     {
-        horizontalInput = Input.GetAxis(HORIZONTAL);
-        verticalInput = Input.GetAxis(VERTICAL);
-        isBreaking = Input.GetKey(KeyCode.Space);
+        // horizontalInput = Input.GetAxis(HORIZONTAL);
+        // verticalInput = Input.GetAxis(VERTICAL);
+        // isBreaking = Input.GetKey(KeyCode.Space);
+    }
+
+    public void SetInputsFromIA(float[] inputsFromAI)
+    {
+        switch (Mathf.Round(inputsFromAI[0]))
+        { //Acelerador
+            case 0: verticalInput = 0f; break;
+            case 1: verticalInput = 1f; break;
+            case 2: verticalInput = -1f; break;
+        }
+
+        switch (Mathf.Round(inputsFromAI[1]))
+        { //Direção
+            case 0: verticalInput = 0f; break;
+            case 1: verticalInput = 1f; break;
+            case 2: verticalInput = -1f; break;
+        }
+
+        switch (Mathf.Round(inputsFromAI[2]))
+        { //Freio
+            case 0: isBreaking = false; break;
+            case 1: isBreaking = true; break;
+        }
     }
 
     private void HandleMotor()
@@ -57,7 +80,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void ApplyBreakingForce()
+    public void ApplyBreakingForce()
     {
         frontLeftWheelCollider.brakeTorque = currentBreakingForce;
         frontRightWheelCollider.brakeTorque = currentBreakingForce;
@@ -65,7 +88,7 @@ public class CarController : MonoBehaviour
         backRightWheelCollider.brakeTorque = currentBreakingForce;
     }
 
-    private void ReleaseBreakingForce()
+    public void ReleaseBreakingForce()
     {
         frontLeftWheelCollider.brakeTorque = 0;
         frontRightWheelCollider.brakeTorque = 0;
