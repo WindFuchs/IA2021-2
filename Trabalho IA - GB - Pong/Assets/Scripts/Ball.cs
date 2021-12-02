@@ -41,6 +41,7 @@ public class Ball : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         transform.position = startPosition;
+        hasColidedWithPaddle = false;
         Lunch();
     }
 }
