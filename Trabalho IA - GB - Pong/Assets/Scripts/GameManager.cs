@@ -22,19 +22,27 @@ public class GameManager : MonoBehaviour
 
     public void Player1Scored()
     {
-        Player1Score++;
+        var hasColidedWithPaddle = ball.GetComponent<Ball>().getHasColidedWithPaddle();
+        if (hasColidedWithPaddle)
+        {
+            Player1Score++;
+        }
         Player1Text.GetComponent<TextMeshProUGUI>().text = Player1Score.ToString();
-        player1Paddle.GetComponent<Paddle>().rewardBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
-        player2Paddle.GetComponent<Paddle>().penalizeBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
+        player1Paddle.GetComponent<Paddle>().rewardBot(hasColidedWithPaddle);
+        player2Paddle.GetComponent<Paddle>().penalizeBot(hasColidedWithPaddle);
         ResetPosition();
     }
 
     public void Player2Scored()
     {
-        Player2Score++;
+        var hasColidedWithPaddle = ball.GetComponent<Ball>().getHasColidedWithPaddle();
+        if (hasColidedWithPaddle)
+        {
+            Player2Score++;
+        }
         Player2Text.GetComponent<TextMeshProUGUI>().text = Player2Score.ToString();
-        player2Paddle.GetComponent<Paddle>().rewardBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
-        player1Paddle.GetComponent<Paddle>().penalizeBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
+        player2Paddle.GetComponent<Paddle>().rewardBot(hasColidedWithPaddle);
+        player1Paddle.GetComponent<Paddle>().penalizeBot(hasColidedWithPaddle);
         ResetPosition();
     }
 

@@ -59,7 +59,7 @@ public class Paddle : Agent
     {
         if (hasColidedWithPaddle)
         {
-            AddReward(-0.25f);
+            AddReward(-1.0f);
         }
         EndEpisode();
     }

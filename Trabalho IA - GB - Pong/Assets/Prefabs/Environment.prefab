@@ -147,6 +147,7 @@ MonoBehaviour:
   speed: 5
   rb: {fileID: 713173923122774752}
   startPosition: {x: 0, y: 0}
+  hasColidedWithPaddle: 0
 --- !u!1 &713173923313510362
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 713173923390094833}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.6989536, y: 0.37148824, z: 0.58009136}
-  m_LocalScale: {x: 0.5, y: 3, z: 1}
+  m_LocalScale: {x: 0.5, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 2294253672837848381}
   m_RootOrder: 1
@@ -724,7 +725,7 @@ Transform:
   m_GameObject: {fileID: 713173923546527082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.301046, y: 0.37148824, z: 0.58009136}
-  m_LocalScale: {x: 0.5, y: 3, z: 1}
+  m_LocalScale: {x: 0.5, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 2294253672837848381}
   m_RootOrder: 2

@@ -32,7 +32,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public bool getGasColidedWithPaddle()
+    public bool getHasColidedWithPaddle()
     {
         return hasColidedWithPaddle;
     }
