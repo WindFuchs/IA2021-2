@@ -18,8 +18,8 @@ public class Ball : MonoBehaviour
 
     private void Lunch()
     {
-        float x = Random.Range(-1f, 1f) == 0 ? -1 : 1;
-        float y = Random.Range(-1f, 1f);
+        float x = Random.Range(0, 2) == 0 ? -1 : 1;
+        float y = Random.Range(0, 2) == 0 ? -1 : 1 + Random.Range(-1.0f, 1.0f);
         rb.velocity = new Vector2(speed * x, speed * y);
     }
 

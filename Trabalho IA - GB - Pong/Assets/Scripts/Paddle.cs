@@ -19,16 +19,32 @@ public class Paddle : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         // Debug.LogFormat("Player " + (isPlayer1 ? 1 : 2) + " - action: " + actions.ContinuousActions[0]);
-        float moveY = actions.ContinuousActions[0];
+        float moveY = actions.DiscreteActions[0];
 
-        movePaddle(moveY);
+        int direction = 0;
+
+        if (moveY == 0)
+        {
+            direction = 0;
+        }
+        else if (moveY == 1)
+        {
+            direction = -1;
+        }
+        else if (moveY == 2)
+        {
+            direction = 1;
+        }
+
+        rb.velocity = new Vector2(rb.velocity.x, direction * Time.deltaTime * speed);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.position); //Self Position;
-        sensor.AddObservation(ball.position); //Ball Position;
-        sensor.AddObservation(oponent.position); //Designated Oponent Position;
+        sensor.AddObservation(transform.position.y); //Self Position;
+        sensor.AddObservation(ball.position.y); //Ball Position;
+        sensor.AddObservation(ball.position.x); //Ball Position;
+        // sensor.AddObservation(oponent.position); //Designated Oponent Position;
         // Debug.Log(
         //     "Self Position - " + transform.position.y + "\n" +
         //     "Ball Position - " + ball.position.x + " | " + ball.position.y + "\n" +
@@ -43,38 +59,35 @@ public class Paddle : Agent
 
     private void movePaddle(float moveControl)
     {
-        rb.velocity = new Vector2(rb.velocity.x, moveControl * Time.deltaTime * speed);
+        rb.velocity = new Vector2(rb.velocity.x, moveControl * speed);
     }
 
     public void rewardBot(bool hasColidedWithPaddle = false)
     {
         if (hasColidedWithPaddle)
         {
-            AddReward(1.0f);
+            AddReward(0.5f);
         }
         EndEpisode();
     }
 
     public void penalizeBot(bool hasColidedWithPaddle = false)
     {
-        if (hasColidedWithPaddle)
-        {
-            AddReward(-1.0f);
-        }
+        AddReward(-0.25f);
         EndEpisode();
     }
 
     private void Update()
     {
-        if (isPlayer1)
-        {
-            movement = Input.GetAxis("Vertical2");
-        }
-        else
-        {
-            movement = Input.GetAxis("Vertical");
-        }
-        rb.velocity = new Vector2(rb.velocity.x, movement * speed);
+        // if (isPlayer1)
+        // {
+        //     movement = Input.GetAxis("Vertical2");
+        // }
+        // else
+        // {
+        //     movement = Input.GetAxis("Vertical");
+        // }
+        // rb.velocity = new Vector2(rb.velocity.x, movement * speed);
     }
 
     // public override void OnEpisodeBegin()
@@ -91,7 +104,7 @@ public class Paddle : Agent
     {
         if (other.collider.TryGetComponent<Ball>(out Ball ball))
         {
-            AddReward(0.5f);
+            AddReward(1.0f);
         }
     }
 

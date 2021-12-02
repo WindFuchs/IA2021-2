@@ -213,9 +213,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 713173923390094733, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
+      propertyPath: speed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 713173923390094734, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: b03a3f51ef3534f41b066264df356c48, type: 3}
     - target: {fileID: 713173923390094834, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.3714882
+      objectReference: {fileID: 0}
+    - target: {fileID: 713173923546527075, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: c1515036337b9404f8edb86e6e722111, type: 3}
+    - target: {fileID: 713173923546527078, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
+      propertyPath: speed
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 713173924316393610, guid: 146d57a4b34afc6478f8faa23b714e14, type: 3}
       propertyPath: m_EdgeRadius
