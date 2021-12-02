@@ -46,15 +46,21 @@ public class Paddle : Agent
         rb.velocity = new Vector2(rb.velocity.x, moveControl * Time.deltaTime * speed);
     }
 
-    public void rewardBot()
+    public void rewardBot(bool hasColidedWithPaddle = false)
     {
-        SetReward(1.0f);
+        if (hasColidedWithPaddle)
+        {
+            AddReward(1.0f);
+        }
         EndEpisode();
     }
 
-    public void penalizeBot()
+    public void penalizeBot(bool hasColidedWithPaddle = false)
     {
-        SetReward(-0.3f);
+        if (hasColidedWithPaddle)
+        {
+            AddReward(-0.5f);
+        }
         EndEpisode();
     }
 
@@ -85,7 +91,7 @@ public class Paddle : Agent
     {
         if (other.collider.TryGetComponent<Ball>(out Ball ball))
         {
-            AddReward(0.3f);
+            AddReward(0.5f);
         }
     }
 

@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     {
         Player1Score++;
         Player1Text.GetComponent<TextMeshProUGUI>().text = Player1Score.ToString();
-        player1Paddle.GetComponent<Paddle>().rewardBot();
-        player2Paddle.GetComponent<Paddle>().penalizeBot();
+        player1Paddle.GetComponent<Paddle>().rewardBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
+        player2Paddle.GetComponent<Paddle>().penalizeBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
         ResetPosition();
     }
 
@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
     {
         Player2Score++;
         Player2Text.GetComponent<TextMeshProUGUI>().text = Player2Score.ToString();
-        player2Paddle.GetComponent<Paddle>().rewardBot();
-        player1Paddle.GetComponent<Paddle>().penalizeBot();
+        player2Paddle.GetComponent<Paddle>().rewardBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
+        player1Paddle.GetComponent<Paddle>().penalizeBot(ball.GetComponent<Ball>().getGasColidedWithPaddle());
         ResetPosition();
     }
 
