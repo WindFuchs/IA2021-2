@@ -77,12 +77,10 @@ public class Paddle : Agent
         //TODO
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Paddle Colied");
         if (other.collider.TryGetComponent<Ball>(out Ball ball))
         {
-            Debug.Log("Paddle Colied With Ball");
             AddReward(0.3f);
         }
     }
