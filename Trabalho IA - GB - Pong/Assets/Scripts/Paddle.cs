@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgents;
 
-public class Paddle : MonoBehaviour
+public class Paddle : Agent
 {
     public bool isPlayer1;
     public float speed;
