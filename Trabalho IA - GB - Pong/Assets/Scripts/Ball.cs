@@ -21,6 +21,14 @@ public class Ball : MonoBehaviour
         rb.velocity = new Vector2(speed * x, speed * y);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.GetComponent<Paddle>())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + Random.Range(-3f, 3f));
+        }
+    }
+
     public void Reset()
     {
         rb.velocity = Vector2.zero;

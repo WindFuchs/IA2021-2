@@ -18,7 +18,7 @@ public class Paddle : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        // Debug.LogFormat("Player " + (isPlayer1 ? 1 : 2) + " - action:" + actions.ContinuousActions[0]);
+        // Debug.LogFormat("Player " + (isPlayer1 ? 1 : 2) + " - action: " + actions.ContinuousActions[0]);
         float moveY = actions.ContinuousActions[0];
 
         movePaddle(moveY);
@@ -29,7 +29,11 @@ public class Paddle : Agent
         sensor.AddObservation(transform.position); //Self Position;
         sensor.AddObservation(ball.position); //Ball Position;
         sensor.AddObservation(oponent.position); //Designated Oponent Position;
-
+        // Debug.Log(
+        //     "Self Position - " + transform.position.y + "\n" +
+        //     "Ball Position - " + ball.position.x + " | " + ball.position.y + "\n" +
+        //     "Enemy Position - " + oponent.position.y + "\n"
+        //     );
     }
 
     private void Start()
